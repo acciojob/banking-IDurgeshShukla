@@ -11,4 +11,11 @@ public class StudentAccount extends BankAccount{
         setMinBalance(0);
     }
 
+    public String getInstitutionName() {
+        return institutionName;
+    }
+
+    public void setInstitutionName(String institutionName) {
+        this.institutionName = institutionName;
+    }
 }

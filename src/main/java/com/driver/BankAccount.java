@@ -54,7 +54,8 @@ public class BankAccount {
 
         String AccountNumber = LowerBound + rm.nextInt(UpperBound) +"";
         int maxAttempts = 1000;
-        while (maxAttempts >0){
+        try {
+        while (maxAttempts > 0){
             int cursum = 0;
             for (int i = 0; i < AccountNumber.length(); i++){
                 cursum += AccountNumber.charAt(i) - '0';
@@ -63,9 +64,12 @@ public class BankAccount {
             AccountNumber = LowerBound + rm.nextInt(UpperBound) +"";
             maxAttempts--;
         }
-        throw new Exception("Account Number can not be generated");
+       Exception e = new Exception("Account Number can not be generated");
+    } catch (Exception e) {
+            return e.getMessage();
+        }
+        return AccountNumber;
     }
-
     public void deposit(double amount) {
         //add amount to balance
         this.balance += amount;
@@ -74,11 +78,18 @@ public class BankAccount {
 
     public void withdraw(double amount) throws Exception {
         // Remember to throw "Insufficient Balance" exception, if the remaining amount would be less than minimum balance
-        if (amount > this.minBalance){
-            throw new Exception("Insufficient Balance") ;
-        } else {
-            this.balance -= amount;
+        boolean invalid = false;
+
+        try {
+            if (amount > this.minBalance) {
+                Exception e = new Exception("Insufficient Balance");
+            }
+        }catch (Exception e){
+            invalid = true;
+            System.out.println(e.getMessage());
         }
+        if(!invalid)
+        this.balance -= amount;
     }
 
 }

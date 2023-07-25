@@ -27,7 +27,14 @@ public class CurrentAccount extends BankAccount{
     public CurrentAccount(String name, double balance, String tradeLicenseId) throws Exception {
         // minimum balance is 5000 by default. If balance is less than 5000, throw "Insufficient Balance" exception
         super(name,balance);
-        if (balance < 5000) throw new Exception("Insufficient Balance");
+        try {
+            if (balance < 5000) {
+                Exception e = new Exception("Insufficient Balance");
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return;
+        }
         setMinBalance(5000);
         this.tradeLicenseId = tradeLicenseId;
     }
@@ -55,10 +62,18 @@ public class CurrentAccount extends BankAccount{
                     j++;
                 }
                 // If it is not possible, throw "Valid License can not be generated" Exception
-                if (j == n) throw new Exception("Valid License can not be generated");
-                else
+                try
                 {
-                    //swap
+                    if (j == n) {
+                        Exception e =  new Exception("Valid License can not be generated");
+                    }
+                }
+                catch ( Exception e){
+                    System.out.println(e.getMessage());
+                    return;
+                }
+                //swap
+                if(j != n){
                     char temp = arr[i];
                     arr[i] = arr[j];
                     arr[j] = temp;
